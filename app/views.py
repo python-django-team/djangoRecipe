@@ -1,13 +1,66 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
+import requests
+from django.views.generic import View
+from django.views.generic.base import TemplateView
 from django.views import View
 from .forms import SiteUserRegisterForm, SiteUserLoginForm
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-# Create your views here.
+REQUEST_URL = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426"
+APP_ID = "1008575362204726338"
 
-
+class IndexView(TemplateView):
+	template_name = 'home/index.html'
+	
+	
+class ResultView(View):
+	
+	def get(self, request, *args, **kwargs):
+		categories = self.request.GET.getlist('categories[]',[])
+		if categories != []:
+			recipes = []
+			recipe_id = []
+			recipe_num_dict = []
+			result = []
+			i = 0
+			for category in categories:
+				search_param = {
+					"applicationId":[APP_ID],
+					#"formatVersion":2,
+					"categoryId":category
+				}
+				responses = requests.get(REQUEST_URL, search_param).json()
+				if 'error' in responses:
+					break
+				recipes.append(responses["result"])
+				j = 0
+				for recipe in responses["result"]:
+					recipe_num = {
+						"cat_rank":i,
+						"res_rank":j
+					}
+					if recipe["recipeId"] in recipe_id:
+						head_id = recipe["recipeId"]
+						recipe_num_dict.pop(recipe_id.index(head_id))
+						recipe_id.pop(recipe_id.index(head_id))
+						recipe_num_dict.insert(0,recipe_num)
+						recipe_id.insert(0,head_id)
+					else:
+						recipe_num_dict.append(recipe_num)
+						recipe_id.append(recipe["recipeId"])
+					j += 1
+				i += 1
+			for recipes_num in recipe_num_dict:
+				result.append(recipes[recipes_num["cat_rank"]][recipes_num["res_rank"]])
+			return render(request,'home/searchResult.html',{ "result":result })
+		else:
+			messages.error(request,"最低1つ以上選択してください")
+			return redirect('app:index')
+			
+		
 class SiteUserLoginView(View):
     def get(self, request, *args, **kwargs):
         context = {
@@ -29,9 +82,6 @@ class SiteUserLoginView(View):
         return redirect("app:site_user_profile")
 
 
-site_user_login = SiteUserLoginView.as_view()
-
-
 class SiteUserLogoutView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
 
@@ -41,10 +91,7 @@ class SiteUserLogoutView(LoginRequiredMixin, View):
         messages.success(request, "ログアウトしました")
 
         return redirect("app:site_user_login")
-
-
-site_user_logout = SiteUserLogoutView.as_view()
-
+        
 
 class SiteUserRegisterView(View):
     def get(self, request, *args, **kwargs):
@@ -66,13 +113,8 @@ class SiteUserRegisterView(View):
         return redirect("app:site_user_login")
 
 
-site_user_register = SiteUserRegisterView.as_view()
-
-
 class SiteUserProfileView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
 
         return render(request, "app/siteUser/profile.html")
 
-
-site_user_profile = SiteUserProfileView.as_view()

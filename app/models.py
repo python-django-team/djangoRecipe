@@ -50,4 +50,5 @@ class SiteUser(AbstractUser):
     objects = SiteUserManager()
 
     USERNAME_FIELD = "email"
+
     REQUIRED_FIELDS = []
