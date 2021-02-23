@@ -4,10 +4,12 @@ import requests
 from django.views.generic import View
 from django.views.generic.base import TemplateView
 from django.views import View
-from .forms import SiteUserRegisterForm, SiteUserLoginForm
+from .models import Recipe, SiteUser
+from .forms import SiteUserRegisterForm, SiteUserLoginForm, MyRecipe
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 REQUEST_URL = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426"
 APP_ID = "1008575362204726338"
@@ -60,7 +62,23 @@ class ResultView(View):
 			messages.error(request,"最低1つ以上選択してください")
 			return redirect('app:index')
 			
-		
+class MyRecipeView(View):
+	def post(self, request, *args, **kwargs):
+		form = MyRecipe(request.POST)
+		if form.is_valid():
+			create_myrecipe = Recipe(
+				title=request.POST['title'],
+				link=request.POST['link'],
+				img=request.POST['img'],
+				userRecipe=request.user.id
+			)
+			create_myrecipe.save()
+			# status=204 is not return
+			return HttpResponse(status=204)      
+		else:
+			return HttpResponse(status=400)
+			
+
 class SiteUserLoginView(View):
     def get(self, request, *args, **kwargs):
         context = {
@@ -91,7 +109,7 @@ class SiteUserLogoutView(LoginRequiredMixin, View):
         messages.success(request, "ログアウトしました")
 
         return redirect("app:site_user_login")
-        
+
 
 class SiteUserRegisterView(View):
     def get(self, request, *args, **kwargs):
@@ -117,4 +135,3 @@ class SiteUserProfileView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
 
         return render(request, "app/siteUser/profile.html")
-
