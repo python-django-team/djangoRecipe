@@ -103,6 +103,16 @@ ul.image_list li .image_box {
     height: 250px;
     width: 250px;
 }
+#select-myrecipe .recipe-info {
+    display: inline-block;
+    float: right;
+    width: 500px;
+    margin-left: 10px;
+}
+#select-myrecipe .article-date {
+    color: #8b8b8b;
+    margin-left: 10rem;
+}
 #select-myrecipe #select {
     float: right;
     font-size: 20px;
