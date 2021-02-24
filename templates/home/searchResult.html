@@ -1,11 +1,9 @@
 {% extends "base.html" %}
  
 {% block content %}
-<div class="recipe-result-header">
-	<h1>検索結果</h1>
-	<p class="btn btn-link">選択</p>
-</div>
+<h1>検索結果</h1>
 <div id="recipe_result">
+	<p class="btn btn-link" id="select" onclick="clickBtn1()">選択</p>
 	{% for i in result %}
 		<button class="recipe-btn" onclick="location.href='{{ i.recipeUrl }}'">
 			<article class="article">
@@ -27,9 +25,11 @@
 <form action={% url 'app:myrecipe' %} method="post">
 	{% csrf_token %}
 	<div id="select-myrecipe">
+		<p class="btn btn-link" id="select" onclick="clickBtn2()">戻す</p>
+		<br></br>
 		{% for i in result %}
-		<input class="recipe-btn" type="checkbox" name="recipe[]" value="{{ i }}">
 			<article class="article">
+				<input class="recipe-btn" type="checkbox" name="recipe[]" value="{{ i }}">
 				<figure>
 					<img src="{{ i.foodImageUrl }}">
 				</figure>
@@ -42,8 +42,9 @@
 				</div>
 			</article>
 		{% endfor %}
+		<br></br>
+		<input class="btn btn-outline-success" type="submit" value="保存する">
 	</div>
 	<br></br>
-	<input class="btn btn-outline-success" type="submit" value="保存する">
 </form>
 {% endblock %}

@@ -23,7 +23,6 @@ class ResultView(View):
 	
 	def get(self, request, *args, **kwargs):
 		categories = self.request.GET.getlist('categories[]',[])
-		print(self.request.GET)
 		if categories != []:
 			recipes = []
 			recipe_id = []
@@ -64,36 +63,45 @@ class ResultView(View):
 			messages.error(request,"最低1つ以上選択してください")
 			return redirect('app:index')
 			
+
 class MyRecipeView(View):
 	def post(self, request, *args, **kwargs):
+		'''searchRusult.html post処理'''
 		recipes = self.request.POST.getlist('recipe[]',[])
-		if recipes != []:
-			title = []
-			link = []
-			img = []
-			for recipe in recipes:
-				r = ast.literal_eval(recipe)
-				title.append(r["recipeTitle"])
-				link.append(r["recipeUrl"])
-				img.append(r["foodImageUrl"])
 
-			form = MyRecipe(title, link, img)
-			print(form)
-			if form.is_valid():
-				create_myrecipe = Recipe(
-					title=title,
-					link=link,
-					img=img,
-					userRecipe=request.user.id
-				)
-				create_myrecipe.save()
-				# status=204 is not return
-				return HttpResponse(status=204)      
-			else:
-				return HttpResponse(status=400)
+		# 1つ以上選択された時
+		if recipes != []:
+			title = {}
+			link = {}
+			img = {}
+			for recipe in recipes:
+				# string -> dict
+				r = ast.literal_eval(recipe)
+
+				title = {"title": r["recipeTitle"]}
+				link = {"link": r["recipeUrl"]}
+				img = {"img": r["foodImageUrl"]}
+
+				form = MyRecipe(title, link, img)
+
+				# insert処理
+				if form.is_valid():
+					create_myrecipe = Recipe(
+						title=title,
+						link=link,
+						img=img,
+						userRecipe=request.user.id
+					)
+					create_myrecipe.save()
+					return redirect('app:index')
+
+				else:
+					return HttpResponse(status=404)
+
+		# 1つも選択されなかった時
 		else:
 			messages.error(request,"最低1つ以上選択してください")
-			return redirect('app:searchResult')
+			return redirect('app:index')
 
 
 class SiteUserLoginView(View):
