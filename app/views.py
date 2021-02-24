@@ -9,6 +9,7 @@ from .forms import SiteUserRegisterForm, SiteUserLoginForm, MyRecipe
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+import ast
 
 
 REQUEST_URL = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426"
@@ -22,6 +23,7 @@ class ResultView(View):
 	
 	def get(self, request, *args, **kwargs):
 		categories = self.request.GET.getlist('categories[]',[])
+		print(self.request.GET)
 		if categories != []:
 			recipes = []
 			recipe_id = []
@@ -64,20 +66,35 @@ class ResultView(View):
 			
 class MyRecipeView(View):
 	def post(self, request, *args, **kwargs):
-		form = MyRecipe(request.POST)
-		if form.is_valid():
-			create_myrecipe = Recipe(
-				title=request.POST['title'],
-				link=request.POST['link'],
-				img=request.POST['img'],
-				userRecipe=request.user.id
-			)
-			create_myrecipe.save()
-			# status=204 is not return
-			return HttpResponse(status=204)      
+		recipes = self.request.POST.getlist('recipe[]',[])
+		if recipes != []:
+			title = []
+			link = []
+			img = []
+			for recipe in recipes:
+				r = ast.literal_eval(recipe)
+				title.append(r["recipeTitle"])
+				link.append(r["recipeUrl"])
+				img.append(r["foodImageUrl"])
+
+			form = MyRecipe(title, link, img)
+			print(form)
+			if form.is_valid():
+				create_myrecipe = Recipe(
+					title=title,
+					link=link,
+					img=img,
+					userRecipe=request.user.id
+				)
+				create_myrecipe.save()
+				# status=204 is not return
+				return HttpResponse(status=204)      
+			else:
+				return HttpResponse(status=400)
 		else:
-			return HttpResponse(status=400)
-			
+			messages.error(request,"最低1つ以上選択してください")
+			return redirect('app:searchResult')
+
 
 class SiteUserLoginView(View):
     def get(self, request, *args, **kwargs):
@@ -87,6 +104,7 @@ class SiteUserLoginView(View):
         return render(request, "app/siteUser/login.html", context)
 
     def post(self, request, *args, **kwargs):
+
         form = SiteUserLoginForm(request.POST)
         if not form.is_valid():
             return render(request, "app/siteUser/login.html", {"form": form})

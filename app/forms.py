@@ -86,4 +86,4 @@ class MyRecipe(forms.ModelForm):
     class Meta:
         model = Recipe
         # 使用するフィールド
-        fields = ('title', 'link', 'img', 'userRecipe')
+        fields = ('title', 'link', 'img')
