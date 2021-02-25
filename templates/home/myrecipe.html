@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block content %}
+<h1>マイレシピ</h1>
+{% for i in myrecipes %}
+<!-- <button class="recipe-btn" onclick="location.href='{{ i. }}'">
+			<article class="article">
+				<figure>
+					<img src="{{ i.foodImageUrl }}">
+				</figure>
+				<div class="recipe-info">
+					<h2>{{ i.recipeTitle }}</h2>
+					<time class="article-date">{{ i.recipePublishday }}</time>
+					<br></br>
+					<p>調理時間目安:{{ i.recipeIndication }}</p>
+					<p>{{ i.recipeDescription }}</p>
+				</div>
+			</article>
+		</button> -->
+<a href="{{ i.link }}"
+    >{{ i.title }}
+    <figure>
+        <img src="{{ i.img }}" />
+    </figure>
+</a>
+{% endfor %} {% endblock %}

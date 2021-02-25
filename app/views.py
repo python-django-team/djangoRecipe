@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, QueryDict
 import requests
 from django.views.generic import View
 from django.views.generic.base import TemplateView
@@ -65,38 +65,46 @@ class ResultView(View):
 			
 
 class MyRecipeView(View):
+	def get(self, request, *args, **kwargs):
+		'''myrecipe.html get処理'''
+		context = {
+			# select処理
+			'myrecipes': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
+		}
+		return render(request, 'home/myrecipe.html', context)
+
 	def post(self, request, *args, **kwargs):
 		'''searchRusult.html post処理'''
 		recipes = self.request.POST.getlist('recipe[]',[])
 
 		# 1つ以上選択された時
 		if recipes != []:
-			title = {}
-			link = {}
-			img = {}
 			for recipe in recipes:
-				# string -> dict
+				# string -> dict -> querydict
 				r = ast.literal_eval(recipe)
+				qd = QueryDict('title='+r["recipeTitle"]+'&link='+r["recipeUrl"]+'&img='+r["foodImageUrl"])
 
-				title = {"title": r["recipeTitle"]}
-				link = {"link": r["recipeUrl"]}
-				img = {"img": r["foodImageUrl"]}
-
-				form = MyRecipe(title, link, img)
+				form = MyRecipe(qd)
+				print(form)
 
 				# insert処理
 				if form.is_valid():
 					create_myrecipe = Recipe(
-						title=title,
-						link=link,
-						img=img,
-						userRecipe=request.user.id
+						title=qd['title'],
+						link=qd['link'],
+						img=qd['img'],
+						userRecipe=self.request.user
 					)
 					create_myrecipe.save()
-					return redirect('app:index')
-
 				else:
-					return HttpResponse(status=404)
+					return HttpResponse("None")
+
+			messages.success(request, 'マイレシピに保存されました')
+			context = {
+			# select処理
+			'myrecipes': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
+			}
+			return render(request, 'home/myrecipe.html', context)
 
 		# 1つも選択されなかった時
 		else:
@@ -123,7 +131,7 @@ class SiteUserLoginView(View):
 
         messages.success(request, "ログインしました")
 
-        return redirect("app:site_user_profile")
+        return redirect("app:index")
 
 
 class SiteUserLogoutView(LoginRequiredMixin, View):

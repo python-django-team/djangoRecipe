@@ -96,22 +96,19 @@ ul.image_list li .image_box {
     float: left;
     height: 250px;
     width: 250px;
-    margin: 0;
+    margin-right: 15px;
 }
 #select-myrecipe .article figure img {
     border-radius: 5px;
     height: 250px;
     width: 250px;
 }
-#select-myrecipe .recipe-info {
-    display: inline-block;
-    float: right;
-    width: 500px;
-    margin-left: 10px;
+#select-myrecipe .recipe-info h2 {
+    text-align: center;
 }
 #select-myrecipe .article-date {
     color: #8b8b8b;
-    margin-left: 10rem;
+    margin-left: 12rem;
 }
 #select-myrecipe #select {
     float: right;
