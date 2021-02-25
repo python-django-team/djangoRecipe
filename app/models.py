@@ -10,6 +10,16 @@ class Recipe(models.Model):
     img = models.CharField(max_length=300)
     userRecipe = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,)
 
+    class Meta:
+        constraints = [
+            # ユニーク制約
+            models.UniqueConstraint(
+                fields=("link", "userRecipe"),
+                name="myrecipe_unique"
+            )
+        ]
+        
+
     # クラスオブジェクトを文字列で返すメソッド
     def __str__(self):
         return self.title

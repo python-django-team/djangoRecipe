@@ -86,4 +86,9 @@ class MyRecipe(forms.ModelForm):
     class Meta:
         model = Recipe
         # 使用するフィールド
-        fields = ('title', 'link', 'img')
+        fields = ('title', 'link', 'img',)
+
+    def clean(self):
+        # ユニーク制約を自動でバリデーション
+        super().clean()
+
