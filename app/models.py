@@ -18,7 +18,14 @@ class Recipe(models.Model):
                 name="myrecipe_unique"
             )
         ]
-        
+
+    @classmethod
+    def check_myrecipe_unique(cls, link, userRecipe) -> bool:
+        """同じデータががすでにDBに登録されているどうかを判定します
+
+        登録されていたらTrue, されていなかったらFalseを返します。
+        """
+        return cls.objects.filter(link=link, userRecipe=userRecipe).exists()
 
     # クラスオブジェクトを文字列で返すメソッド
     def __str__(self):

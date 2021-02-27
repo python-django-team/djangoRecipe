@@ -88,7 +88,16 @@ class MyRecipe(forms.ModelForm):
         # 使用するフィールド
         fields = ('title', 'link', 'img',)
 
-    def clean(self):
-        # ユニーク制約を自動でバリデーション
-        super().clean()
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
 
+
+    def clean(self):
+        # 複合ユニーク制約をバリデーション
+        cleaned_data = super(MyRecipe, self).clean()
+        link = self.cleaned_data.get("link")
+        userRecipe = self.user
+
+        if Recipe.check_myrecipe_unique(link, userRecipe):
+            raise forms.ValidationError("")

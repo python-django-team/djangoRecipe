@@ -82,10 +82,14 @@ class MyRecipeView(View):
 			for recipe in recipes:
 				# string -> dict -> querydict
 				r = ast.literal_eval(recipe)
-				qd = QueryDict('title='+r["recipeTitle"]+'&link='+r["recipeUrl"]+'&img='+r["foodImageUrl"])
+				qd = QueryDict(
+					'title='+r["recipeTitle"]+
+					'&link='+r["recipeUrl"]+
+					'&img='+r["foodImageUrl"]
+				)
 
-				form = MyRecipe(qd)
-				print(form)
+				form = MyRecipe(user=self.request.user, data=qd)
+				print(type(self.request.user))
 
 				# insert処理
 				if form.is_valid():
@@ -96,10 +100,10 @@ class MyRecipeView(View):
 						userRecipe=self.request.user
 					)
 					create_myrecipe.save()
+					messages.success(request, r["recipeTitle"]+'をマイレシピに保存しました')
 				else:
-					return HttpResponse("None")
+					messages.error(request, r["recipeTitle"]+"は既に保存されています")
 
-			messages.success(request, 'マイレシピに保存されました')
 			context = {
 			# select処理
 			'myrecipes': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')

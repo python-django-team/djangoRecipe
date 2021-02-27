@@ -117,3 +117,29 @@ ul.image_list li .image_box {
 #select-myrecipe .btn-outline-success {
     float: right;
 }
+#myrecipe_result {
+    display: inline-block;
+    margin-top: 20px;
+}
+#myrecipe_result .recipe-btn {
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+}
+#myrecipe_result .recipe-btn:hover {
+    opacity: 0.7;
+}
+#myrecipe_result .article-myrecipe {
+    display: inline-block;
+    height: 200px;
+    width: 200px;
+    vertical-align: top; /* 上端揃え */
+    margin: 2rem;
+}
+#myrecipe_result .article-myrecipe figure img {
+    display: inline-block;
+    border-radius: 5px;
+    height: 150px;
+    width: 200px;
+}
