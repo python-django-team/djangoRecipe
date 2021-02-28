@@ -143,3 +143,11 @@ ul.image_list li .image_box {
     height: 150px;
     width: 200px;
 }
+#reload {
+    color: #fff;
+    background: #5876a3;
+    padding: 10px 30px;
+    display: inline-block;
+    border-radius: 5px;
+    text-decoration: none;
+}
