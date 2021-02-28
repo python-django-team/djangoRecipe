@@ -16,7 +16,7 @@
     <body>
         <header>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/">Recipe</a>
+                <a class="navbar-brand" href="index">Recipe</a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -37,17 +37,32 @@
                         <li class="nav-item">
                             {% if user.is_authenticated %}
                             <a
-                                class="nav-link disabled"
+                                class="nav-link"
                                 href="{% url 'app:site_user_logout' %}"
                                 >Logout</a
                             >
                             {% else %}
                             <a
-                                class="nav-link disabled"
+                                class="nav-link"
                                 href="{% url 'app:site_user_login' %}"
                                 >Login</a
                             >
                             {% endif %}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'app:index' %}"
+                                >レシピ検索</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'app:random' %}"
+                                >ランダムレシピ</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'app:myrecipe' %}"
+                                >マイレシピ</a
+                            >
                         </li>
                     </ul>
                 </div>
@@ -82,5 +97,6 @@
         ></script>
         <script src="{% static 'js/javascript.js' %}"></script>
         <script src="{% static 'js/myrecipe.js' %}"></script>
+        <script src="{% static 'js/delete-myrecipe.js' %}"></script>
     </body>
 </html>

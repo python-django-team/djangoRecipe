@@ -9,18 +9,55 @@ from .forms import SiteUserRegisterForm, SiteUserLoginForm, MyRecipe
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 import ast
+
+
+import json
+import random
 
 
 REQUEST_URL = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426"
 APP_ID = "1008575362204726338"
 
+# ランダムレシピ
+class Random(View):
+	def get(self, request, *args, **kwargs):
+	# jsonファイルから読み込む(必要なデータを取り出す)
+		passdatas = [] # 連想配列の配列
+		passdata = {} # 連想配列
+		category_numbers = [ # カテゴリid
+				"10-66", "10-67", "10-68", "10-69", "10-275", "10-277", "10-278",
+				"11-70", "11-71", "11-72", "11-73", "11-74", "11-77", "11-78"
+			]
+		with open('static/json/mydata.json', mode='rt', encoding='utf-8') as file:
+			data = json.load(file)
+			# data[result_カテゴリ番号_カテゴリ内のレシピ番号][0] -----
+
+			# 表示するレシピの数
+			show_num = 5
+			passdata = {}
+			# カテゴリidをランダムに5個選ぶ
+			choose_id = random.sample(range(len(category_numbers)), k=show_num)
+			for i in range(show_num):
+				r = random.randint(0,3) # カテゴリ内のレシピ番号(0~3)
+				passdata = {}
+				passdata["recipeUrl"] = data["result_"+category_numbers[choose_id[i]]+"_"+str(r)][0]["recipeUrl"]
+				passdata["foodImageUrl"] = data["result_"+category_numbers[choose_id[i]]+"_"+str(r)][0]["foodImageUrl"]
+				passdata["recipeTitle"] = data["result_"+category_numbers[choose_id[i]]+"_"+str(r)][0]["recipeTitle"]
+				passdata["recipePublishday"] = data["result_"+category_numbers[choose_id[i]]+"_"+str(r)][0]["recipePublishday"]
+				passdata["recipeIndication"] = data["result_"+category_numbers[choose_id[i]]+"_"+str(r)][0]["recipeIndication"]
+				passdata["recipeDescription"] = data["result_"+category_numbers[choose_id[i]]+"_"+str(r)][0]["recipeDescription"]
+				passdatas.append(passdata)
+
+		return render(request, 'home/random_recipe.html', {'data': passdatas})
+
+# 食材のジャンル選択画面
 class IndexView(TemplateView):
 	template_name = 'home/index.html'
 	
-	
+# 結果表示画面
 class ResultView(View):
-	
 	def get(self, request, *args, **kwargs):
 		categories = self.request.GET.getlist('categories[]',[])
 		if categories != []:
@@ -35,10 +72,12 @@ class ResultView(View):
 					#"formatVersion":2,
 					"categoryId":category
 				}
+				# データを取得する
 				responses = requests.get(REQUEST_URL, search_param).json()
 				if 'error' in responses:
 					break
 				recipes.append(responses["result"])
+
 				j = 0
 				for recipe in responses["result"]:
 					recipe_num = {
@@ -62,17 +101,20 @@ class ResultView(View):
 		else:
 			messages.error(request,"最低1つ以上選択してください")
 			return redirect('app:index')
-			
+	
 
+# マイレシピ保存
 class MyRecipeView(View):
+	# マイレシピ画面
 	def get(self, request, *args, **kwargs):
 		'''myrecipe.html get処理'''
 		context = {
 			# select処理
-			'myrecipes': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
+			'myrecipe': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
 		}
 		return render(request, 'home/myrecipe.html', context)
 
+	# レシピ保存
 	def post(self, request, *args, **kwargs):
 		'''searchRusult.html post処理'''
 		recipes = self.request.POST.getlist('recipe[]',[])
@@ -106,7 +148,7 @@ class MyRecipeView(View):
 
 			context = {
 			# select処理
-			'myrecipes': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
+			'myrecipe': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
 			}
 			return render(request, 'home/myrecipe.html', context)
 
@@ -115,7 +157,34 @@ class MyRecipeView(View):
 			messages.error(request,"最低1つ以上選択してください")
 			return redirect('app:index')
 
+# マイレシピ削除
+class DeleteMyRecipeView(View):
+	def post(self, request, *args, **kwargs):
+		'''searchRusult.html post処理'''
+		recipes = self.request.POST.getlist('recipe[]',[])
 
+		# 1つ以上選択された時
+		if recipes != []:
+			for recipe in recipes:
+				selected_title = Recipe.objects.get(id=recipe).title
+				Recipe.objects.filter(id=recipe).delete()
+				messages.success(request, selected_title+'をマイレシピから削除しました')
+
+			context = {
+			# select処理
+			'myrecipe': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
+			}
+			return render(request, 'home/myrecipe.html', context)
+			return HttpResponse(status=204)
+
+		# 1つも選択されなかった時
+		else:
+			messages.error(request,"最低1つ以上選択してください")
+			return redirect('app:myrecipe')
+
+
+
+# ログイン
 class SiteUserLoginView(View):
     def get(self, request, *args, **kwargs):
         context = {
@@ -137,7 +206,7 @@ class SiteUserLoginView(View):
 
         return redirect("app:index")
 
-
+# ログアウト
 class SiteUserLogoutView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
 
@@ -148,7 +217,8 @@ class SiteUserLogoutView(LoginRequiredMixin, View):
 
         return redirect("app:site_user_login")
 
-
+        
+# 会員登録
 class SiteUserRegisterView(View):
     def get(self, request, *args, **kwargs):
         context = {
