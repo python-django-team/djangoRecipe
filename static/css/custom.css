@@ -117,9 +117,9 @@ ul.image_list li .image_box {
 #select-myrecipe .btn-outline-success {
     float: right;
 }
-#myrecipe_result {
-    display: inline-block;
-    margin-top: 10px;
+#myrecipe_result #select {
+    float: right;
+    font-size: 20px;
 }
 #myrecipe_result .recipe-btn {
     border: none;
@@ -143,9 +143,38 @@ ul.image_list li .image_box {
     height: 200px;
     width: 250px;
 }
-#myrecipe_result #select {
+#select-myrecipe-delete #select {
     float: right;
     font-size: 20px;
+}
+#select-myrecipe-delete .article-myrecipe {
+    display: inline-block;
+    height: 250px;
+    width: 250px;
+    vertical-align: top; /* 上端揃え */
+    margin: 2rem;
+}
+#select-myrecipe-delete .article-myrecipe .recipe-btn {
+    float: left;
+    margin-top: 40%;
+    margin-right: 10px;
+    height: 20px;
+    width: 20px;
+}
+#select-myrecipe-delete .article-myrecipe figure {
+    padding-left: 2rem;
+}
+#select-myrecipe-delete .article-myrecipe h5 {
+    padding-left: 2rem;
+}
+#select-myrecipe-delete .article-myrecipe figure img {
+    display: inline-block;
+    border-radius: 5px;
+    height: 200px;
+    width: 250px;
+}
+#select-myrecipe-delete .btn-outline-success {
+    float: right;
 }
 #reload {
     color: #fff;
