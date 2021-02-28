@@ -6,7 +6,7 @@
 <div id="myrecipe_result">
     <p class="btn btn-link" id="select" onclick="clickBtn3()">選択</p>
     <br></br>
-    {% for i in myrecipes %}
+    {% for i in myrecipe %}
     <button class="recipe-btn" onclick="location.href='{{ i.link }}'">
         <article class="article-myrecipe">
             <figure>
@@ -20,20 +20,20 @@
 
 
 <div id="select-myrecipe-delete">
-	<form action={% url 'app:myrecipe' %} method="post">
+	<form action={% url 'app:myrecipe_delete' %} method="post">
 		{% csrf_token %}
 		<p class="btn btn-link" id="select" onclick="clickBtn4()">戻す</p>
 		<br></br>
-		{% for i in myrecipes %}
-        <article class="article-myrecipe">
-            <label class="label" for="{{ i.link }}">
-            <input class="recipe-btn" type="checkbox" name="recipe[]" id="{{ i.link }}" value="{{ i }}">
-				<figure>
-					<img src="{{ i.img }}">
-				</figure>
-				<h5>{{ i.title }}</h5>
-			</label>
-		</article>
+		{% for i in myrecipe %}
+            <article class="article-myrecipe">
+                <label class="label" for="{{ i.link }}">
+                <input class="recipe-btn" type="checkbox" name="recipe[]" id="{{ i.link }}" value="{{ i.id }}">
+                    <figure>
+                        <img src="{{ i.img }}">
+                    </figure>
+                    <h5>{{ i.title }}</h5>
+                </label>
+            </article>
 		{% endfor %}
 		<br></br>
 		<input class="btn btn-outline-success" type="submit" value="削除する">

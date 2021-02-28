@@ -110,7 +110,7 @@ class MyRecipeView(View):
 		'''myrecipe.html get処理'''
 		context = {
 			# select処理
-			'myrecipes': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
+			'myrecipe': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
 		}
 		return render(request, 'home/myrecipe.html', context)
 
@@ -148,7 +148,7 @@ class MyRecipeView(View):
 
 			context = {
 			# select処理
-			'myrecipes': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
+			'myrecipe': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
 			}
 			return render(request, 'home/myrecipe.html', context)
 
@@ -156,6 +156,32 @@ class MyRecipeView(View):
 		else:
 			messages.error(request,"最低1つ以上選択してください")
 			return redirect('app:index')
+
+# マイレシピ削除
+class DeleteMyRecipeView(View):
+	def post(self, request, *args, **kwargs):
+		'''searchRusult.html post処理'''
+		recipes = self.request.POST.getlist('recipe[]',[])
+
+		# 1つ以上選択された時
+		if recipes != []:
+			for recipe in recipes:
+				selected_title = Recipe.objects.get(id=recipe).title
+				Recipe.objects.filter(id=recipe).delete()
+				messages.success(request, selected_title+'をマイレシピから削除しました')
+
+			context = {
+			# select処理
+			'myrecipe': Recipe.objects.filter(userRecipe=self.request.user).order_by('-id')
+			}
+			return render(request, 'home/myrecipe.html', context)
+			return HttpResponse(status=204)
+
+		# 1つも選択されなかった時
+		else:
+			messages.error(request,"最低1つ以上選択してください")
+			return redirect('app:myrecipe')
+
 
 
 # ログイン

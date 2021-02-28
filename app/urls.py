@@ -16,4 +16,6 @@ urlpatterns = [
     path('random', views.Random.as_view(), name='random'),
     # マイレシピ
     path("myrecipe", views.MyRecipeView.as_view(), name='myrecipe'),
+    # マイレシピ削除
+    path("myrecipe/delete", views.DeleteMyRecipeView.as_view(), name='myrecipe_delete'),
 ]
