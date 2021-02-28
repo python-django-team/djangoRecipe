@@ -183,7 +183,6 @@ class DeleteMyRecipeView(View):
 			return redirect('app:myrecipe')
 
 
-
 # ログイン
 class SiteUserLoginView(View):
     def get(self, request, *args, **kwargs):
