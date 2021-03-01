@@ -77,4 +77,37 @@ ul.image_list li .image_box {
 	text-align: left;
 }
 
+.hidden {
+	display:none;
+}
 
+#showPic{
+    
+    width:40%;
+    height:300px;
+    margin: 10px;
+    float:left;
+}
+
+#showPic img {
+	max-height:300px;
+    max-width:480px;
+    height:auto;
+    width:auto;
+}
+
+#resultLabels{
+	width:40%;
+	float:right;
+	margin:10px;
+}
+
+#resultLabels b {
+	text-align: center;
+}
+
+.resultTableContent{
+    height:30px;
+    border: 3px solid #003A76;
+    border-radius: 4px;
+}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<label>写真</label>
+<input type="file" id="uploader">
+<div class="resultArea hidden">
+    <div id="showPic"></div>
+    <table id="resultLabels">
+        <thead><tr><td><b>検出された食材</b></td></tr></thead> 
+        <tbody id="resultBox"></tbody>
+    </table>
+</div>
+{% endblock %}

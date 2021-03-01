@@ -118,3 +118,6 @@ class SiteUserProfileView(LoginRequiredMixin, View):
 
         return render(request, "app/siteUser/profile.html")
 
+
+class RecognitionView(TemplateView):
+	template_name = 'recognition/recognition.html'
