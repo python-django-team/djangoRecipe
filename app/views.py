@@ -77,7 +77,6 @@ class ResultView(View):
 				if 'error' in responses:
 					break
 				recipes.append(responses["result"])
-
 				j = 0
 				for recipe in responses["result"]:
 					recipe_num = {
@@ -193,7 +192,6 @@ class SiteUserLoginView(View):
         return render(request, "app/siteUser/login.html", context)
 
     def post(self, request, *args, **kwargs):
-
         form = SiteUserLoginForm(request.POST)
         if not form.is_valid():
             return render(request, "app/siteUser/login.html", {"form": form})
