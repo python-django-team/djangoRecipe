@@ -3,3 +3,4 @@ __pycache__/
 db/
 Pipfile.lock
 Pipfile
+db.sqlite3
