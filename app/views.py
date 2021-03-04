@@ -32,7 +32,6 @@ class ResultView(View):
 			for category in categories:
 				search_param = {
 					"applicationId":[APP_ID],
-					#"formatVersion":2,
 					"categoryId":category
 				}
 				responses = requests.get(REQUEST_URL, search_param).json()
