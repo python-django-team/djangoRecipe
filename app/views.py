@@ -17,8 +17,12 @@ import json
 import random
 
 
-REQUEST_URL = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426"
-APP_ID = "1008575362204726338"
+from django.conf import settings
+
+#REQUEST_URL = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426"
+#APP_ID = "1008575362204726338"
+REQUEST_URL = settings.REQUEST_URL
+APP_ID = settings.APP_ID
 
 # ランダムレシピ
 class Random(View):
