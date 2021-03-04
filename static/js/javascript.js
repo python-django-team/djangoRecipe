@@ -39,12 +39,14 @@ $(window).on('load',function(){
 });
 
 function clear() {
-  $('#resultBox tr td').text("");
+  $('#checkboxes').text("");
+  $('#recognition_to_search_button').addClass("hidden");
 }
 $('#uploader').change(function(evt) {
  
   getImageInfo(evt);
   clear();
+  $(".ImageArea").removeClass("hidden");
   $(".resultArea").removeClass("hidden");
 })
 
@@ -52,11 +54,24 @@ function getImageInfo(evt) {
   var file = evt.target.files;
   var reader = new FileReader();
   var dataUrl = "";
+  console.log("why");
   reader.readAsDataURL(file[0]);
   reader.onload = function() {
     dataUrl = reader.result;
     $('#showPic').html("<img src='" + dataUrl + "'>");
     makeRequest(dataUrl, getVisionAPIInfo);
+    /*
+    var food_name_json_url = "static/json/food_name.json";
+    $.getJSON(food_name_json_url, (data) => {
+      var english_name = "Pork"
+      if (data[english_name]) {
+        console.log(data[english_name]);
+        console.log(data[english_name][0]["japanese_name"]);
+      }
+      
+    });
+   */
+    
   }
 }
 
@@ -86,8 +101,48 @@ function getVisionAPIInfo(request) {
 }
 
 function showResult(result) {
-  for (var i = 0; i < result.responses[0].localizedObjectAnnotations.length; i++) {
-    console.log(result.responses[0].localizedObjectAnnotations[i].name);
-    $('#resultBox').append(`<tr><td class='resultTableContent'>${result.responses[0].localizedObjectAnnotations[i].name}</td></tr>`);
-  }
+  var food_name_json_url = "static/json/food_name.json";
+  console.log("okkk");
+  $.getJSON(food_name_json_url, (data) => {
+    var english_name_array = result.responses[0].localizedObjectAnnotations.map((object) => object.name);
+    console.log(english_name_array);
+    var english_name_set = new Set(english_name_array);
+    var flag = 0;
+
+    english_name_set.forEach((english_name, index) => {
+      if (data[english_name]) {
+        var check_form = `
+          <div class='custom-control custom-checkbox food_check'>
+          <input type="checkbox" class='custom-control-input' id='custom-check-${index}' value=${data[english_name][0]["id"]}>
+          <label class='custom-control-label' for='custom-check-${index}'>${data[english_name][0]["japanese_name"]}</label>
+          </div>`;
+          $('#checkboxes').append($(check_form));
+          flag = 1;
+      }
+    })
+
+    if (flag==1) {
+      $('#recognition_to_search_button').removeClass("hidden");
+    } else {
+      var alert_message = `<div class="alert alert-danger" role="alert">
+                          食材が一つも識別されませんでした
+                          </div>`;
+      $('.no_food').append($(alert_message));
+    }
+
+    
+    /*
+    for (var english_name of english_name_set) {
+      if (data[english_name]) {
+
+        $('#resultBox').append(`<tr><td class='resultTableContent'>${data[english_name][0]["japanese_name"]}</td></tr>`);
+        var data = `
+          <div class='custom-control custom-checkbox food_check'>
+          <input type="checkbox" class='custom-control-input' id='custom-check-${}' value=${data[english_name][0]["id"]}>
+          <label class='custom-control-label'>${data[english_name][0]["japanese_name"]}</label>
+          </div>`;
+      }
+    }
+    */
+  });
 }

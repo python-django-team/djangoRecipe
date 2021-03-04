@@ -1,12 +1,52 @@
 {% extends "base.html" %}
 {% block content %}
-<label>写真</label>
-<input type="file" id="uploader">
+<div class="file_input_and_image">
+    <div class="file_input">
+        <div class="input-group">
+            <label class="input-group-btn">
+                <span class="btn btn-primary">
+                    写真を選択<input type="file" style="display:none" id="uploader">
+                </span>
+            </label>
+            <input type="text" class="form-control" readonly="">
+        </div>
+    </div>
+    <div class="ImageArea hidden">
+        <div id="showPic"></div>
+    </div>
+</div>
 <div class="resultArea hidden">
-    <div id="showPic"></div>
+    <div class="no_food">
+        <!--
+        <div class="alert alert-danger" role="alert">
+            食材が一つも識別されませんでした
+        </div>
+    -->
+    </div>
+    <h3>識別結果</h3>
+    <!--
     <table id="resultLabels">
-        <thead><tr><td><b>検出された食材</b></td></tr></thead> 
+        <thead><tr><td><b>識別結果</b></td></tr></thead> 
         <tbody id="resultBox"></tbody>
     </table>
+-->
+    <form id="result_form">
+        <div class="form-group" id="checkboxes">
+            <!--
+            <div class="custom-control custom-checkbox food_check">
+                <input type="checkbox" class="custom-control-input" id="custom-check-2">
+                <label class="custom-control-label" for="custom-check-2">選択肢2</label>
+            </div>
+            <div class="custom-control custom-checkbox food_check">
+                <input type="checkbox" class="custom-control-input" id="custom-check-3">
+                <label class="custom-control-label" for="custom-check-3">選択肢3</label>
+            </div>
+        -->
+        
+        </div>
+        <div class="hidden" id="recognition_to_search_button">
+            <button class="btn btn-primary" type="submit">レシピを検索</button>
+        </div>  
+    </form>
 </div>
 {% endblock %}

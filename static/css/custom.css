@@ -80,27 +80,41 @@ ul.image_list li .image_box {
 .hidden {
 	display:none;
 }
+.file_input_and_image {
+	width:40%;
+	float:left;
+	margin: 10px;
+}
+.resultArea {
+	width:40%;
+	float:right;
+	margin:10px;
+}
 
+.file_input {
+	width:80%;
+}
 #showPic{
+	margin-top: 10px;
     
-    width:40%;
-    height:300px;
-    margin: 10px;
-    float:left;
 }
 
 #showPic img {
+	/*
 	max-height:300px;
     max-width:480px;
     height:auto;
-    width:auto;
+	*/
+    width:100%;
 }
 
+/*
 #resultLabels{
 	width:40%;
 	float:right;
 	margin:10px;
 }
+*/
 
 #resultLabels b {
 	text-align: center;
@@ -110,4 +124,8 @@ ul.image_list li .image_box {
     height:30px;
     border: 3px solid #003A76;
     border-radius: 4px;
+}
+
+.food_check {
+	margin:5px;
 }
