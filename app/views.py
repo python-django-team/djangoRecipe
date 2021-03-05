@@ -9,16 +9,16 @@ from .forms import SiteUserRegisterForm, SiteUserLoginForm, MyRecipe
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.conf import settings
 import ast
 
 
 import json
 import random
 
-
-REQUEST_URL = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426"
-APP_ID = "1008575362204726338"
+#envファイル→settings.pyファイルで読み込む
+REQUEST_URL = settings.REQUEST_URL
+APP_ID = settings.APP_ID
 
 # ランダムレシピ
 class Random(View):
