@@ -1,5 +1,5 @@
 from django import forms
-from .models import SiteUser
+from .models import SiteUser, Recipe
 import re
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -81,3 +81,23 @@ class SiteUserLoginForm(forms.Form):
 
     def get_site_user(self):
         return self.site_user_cache
+
+class MyRecipe(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        # 使用するフィールド
+        fields = ('title', 'link', 'img',)
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+
+    def clean(self):
+        # 複合ユニーク制約をバリデーション
+        cleaned_data = super(MyRecipe, self).clean()
+        link = self.cleaned_data.get("link")
+        userRecipe = self.user
+
+        if Recipe.check_myrecipe_unique(link, userRecipe):
+            raise forms.ValidationError("")

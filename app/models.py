@@ -3,14 +3,33 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.utils.translation import gettext_lazy as _
 
-# Create your models here.
-
 
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
     link = models.CharField(max_length=300)
-    img = models.CharField(max_length=100)
+    img = models.CharField(max_length=300)
     userRecipe = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,)
+
+    class Meta:
+        constraints = [
+            # ユニーク制約
+            models.UniqueConstraint(
+                fields=("link", "userRecipe"),
+                name="myrecipe_unique"
+            )
+        ]
+
+    @classmethod
+    def check_myrecipe_unique(cls, link, userRecipe) -> bool:
+        """同じデータががすでにDBに登録されているどうかを判定します
+
+        登録されていたらTrue, されていなかったらFalseを返します。
+        """
+        return cls.objects.filter(link=link, userRecipe=userRecipe).exists()
+
+    # クラスオブジェクトを文字列で返すメソッド
+    def __str__(self):
+        return self.title
 
 
 class SiteUserManager(UserManager):

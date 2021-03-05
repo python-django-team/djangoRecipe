@@ -12,6 +12,7 @@ $(document).ready(function() {
 	
   // 画像がクリックされた時の処理です。
   $('img.thumbnail').on('click', function() {
+    console.log("id");
   	var this_id = $(this).prop('id');
     if (!$(this).is('.checked')) {
       // チェックが入っていない画像をクリックした場合、チェックを入れます。
@@ -102,7 +103,6 @@ function getVisionAPIInfo(request) {
 
 function showResult(result) {
   var food_name_json_url = "static/json/food_name.json";
-  console.log("okkk");
   $.getJSON(food_name_json_url, (data) => {
     var english_name_array = result.responses[0].localizedObjectAnnotations.map((object) => object.name);
     console.log(english_name_array);
@@ -110,7 +110,9 @@ function showResult(result) {
     var flag = 0;
 
     english_name_set.forEach((english_name, index) => {
+      console.log(english_name);
       if (data[english_name]) {
+        console.log("okk");
         var check_form = `
           <div class='custom-control custom-checkbox food_check'>
           <input type="checkbox" class='custom-control-input' id='custom-check-${index}' value=${data[english_name][0]["id"]}>
