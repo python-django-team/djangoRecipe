@@ -13,7 +13,6 @@ from django.contrib import messages
 import environ
 import dj_database_url
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -78,6 +77,8 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+#heroku用のデータベース
 
 DATABASES = {
     'default': {
@@ -150,13 +151,13 @@ MESSAGE_TAGS = {
 #ログイン画面
 LOGIN_URL = 'app:site_user_login'
 
-
+#envファイルから楽天APIのURLやキーを読み込む
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
-
 REQUEST_URL = env('REQUEST_URL')
 APP_ID = env('APP_ID')
 
+#ローカル環境とheroku環境でデータベースを切り替える
 try:
     from .local_settings import *
 except ImportError:
