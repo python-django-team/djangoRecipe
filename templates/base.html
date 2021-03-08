@@ -78,6 +78,14 @@
                 </div>
             {% endfor %}
             <br>
+            <div class="input-group">
+                <label class="input-group-btn">
+                    <span class="btn btn-primary">
+                        写真を選択<input type="file" style="display:none" id="uploader">
+                    </span>
+                </label>
+                <input type="text" class="form-control" readonly="">
+            </div>
             {% block content %}
             {% endblock %}
         </div>
