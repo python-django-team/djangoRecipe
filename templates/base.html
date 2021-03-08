@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="manifest" href="{% static 'json/manifest.json' %}">
 </head>
 
 <body>
@@ -91,6 +92,22 @@
     <script src="{% static 'js/javascript.js' %}"></script>
     <script src="{% static 'js/myrecipe.js' %}"></script>
     <script src="{% static 'js/delete-myrecipe.js' %}"></script>
+    <!-- PWA -->
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register("{% url 'service-worker' %}").then(function(registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+    <!-- PWA -->
 </body>
 
 </html>

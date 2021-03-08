@@ -1,0 +1,21 @@
+{
+    "name": "django-recipe",
+    "short_name": "django-recipe",
+    "start_url": "https://python-django-team.herokuapp.com/random",
+    "display": "standalone",
+    "background_color": "#fff",
+    "theme_color": "#FFDF97",
+    "description": "this is django recipe",
+    "icons": [
+      {
+        "src": "../192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "../512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+}
