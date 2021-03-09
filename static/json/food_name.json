@@ -2,43 +2,43 @@
     "Pork": [
         {
             "japanese_name": "豚肉",
-            "id": 1
+            "id": "10-276"
         }
     ],
     "Beef": [
         {
             "japanese_name": "牛肉",
-            "id": 1
+            "id": "10-275"
         }
     ],
     "Chicken": [
         {
             "japanese_name": "鶏肉",
-            "id": 1
+            "id": "10-277"
         }
     ],
     "Sausage": [
         {
             "japanese_name": "ソーセージ",
-            "id": 1
+            "id": "10-66"
         }
     ],
     "Wiener": [
         {
             "japanese_name": "ウインナー",
-            "id": 1
+            "id": "10-66"
         }
     ],
     "Ham": [
         {
             "japanese_name": "ハム",
-            "id": 1
+            "id": "10-67"
         }
     ],
     "Bacon": [
         {
             "japanese_name": "ベーコン",
-            "id": 1
+            "id": "10-68"
         }
     ],
     "Salmon": [
