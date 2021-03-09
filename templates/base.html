@@ -78,16 +78,6 @@
                 </div>
             {% endfor %}
             <br>
-            <!--
-            <div class="input-group">
-                <label class="input-group-btn">
-                    <span class="btn btn-primary">
-                        写真を選択<input type="file" style="display:none" id="uploader">
-                    </span>
-                </label>
-                <input type="text" class="form-control" readonly="">
-            </div>
-        -->
             {% block content %}
             {% endblock %}
         </div>
@@ -106,8 +96,8 @@
     <script src="{% static 'js/javascript.js' %}"></script>
     <script src="{% static 'js/myrecipe.js' %}"></script>
     <script src="{% static 'js/delete-myrecipe.js' %}"></script>
+
     <!-- PWA -->
-    
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
@@ -122,6 +112,7 @@
         }
     </script>
     <!-- PWA -->
+    
 </body>
 
 </html>
