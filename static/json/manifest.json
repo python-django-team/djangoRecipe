@@ -1,7 +1,7 @@
 {
     "name": "django-recipe",
     "short_name": "django-recipe",
-    "start_url": "https://python-django-team.herokuapp.com/random",
+    "start_url": "http://127.0.0.1:8000/random",
     "display": "standalone",
     "background_color": "#fff",
     "theme_color": "#FFDF97",
