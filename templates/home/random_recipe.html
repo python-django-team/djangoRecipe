@@ -30,7 +30,7 @@
 </div>
 
 <div id="select-myrecipe">
-	<form action={% url 'app:myrecipe' %} method="post">
+	<form action="{% url 'app:myrecipe' %}" method="post">
 		{% csrf_token %}
 		<p class="btn btn-link" id="select" onclick="clickBtn2()">戻す</p>
 		<br></br>
