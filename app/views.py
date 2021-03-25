@@ -9,16 +9,16 @@ from .forms import SiteUserRegisterForm, SiteUserLoginForm, MyRecipe
 from django.contrib import messages
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.conf import settings
 import ast
 
 
 import json
 import random
 
-
-REQUEST_URL = "https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426"
-APP_ID = "1008575362204726338"
+#envファイル→settings.pyファイルで読み込む
+REQUEST_URL = settings.REQUEST_URL
+APP_ID = settings.APP_ID
 
 # ランダムレシピ
 class Random(View):
@@ -77,7 +77,6 @@ class ResultView(View):
 				if 'error' in responses:
 					break
 				recipes.append(responses["result"])
-
 				j = 0
 				for recipe in responses["result"]:
 					recipe_num = {
@@ -193,7 +192,6 @@ class SiteUserLoginView(View):
         return render(request, "app/siteUser/login.html", context)
 
     def post(self, request, *args, **kwargs):
-
         form = SiteUserLoginForm(request.POST)
         if not form.is_valid():
             return render(request, "app/siteUser/login.html", {"form": form})
