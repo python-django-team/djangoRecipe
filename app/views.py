@@ -60,6 +60,7 @@ class IndexView(TemplateView):
 class ResultView(View):
 	def get(self, request, *args, **kwargs):
 		categories = self.request.GET.getlist('categories[]',[])
+		print(categories)
 		if categories != []:
 			recipes = []
 			recipe_id = []

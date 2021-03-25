@@ -112,14 +112,19 @@ function showResult(result) {
     english_name_set.forEach((english_name, index) => {
       console.log(english_name);
       if (data[english_name]) {
-        console.log("okk");
         var check_form = `
           <div class='custom-control custom-checkbox food_check'>
-          <input type="checkbox" class='custom-control-input' id='custom-check-${index}' value=${data[english_name][0]["id"]}>
+          <input type="checkbox" class='custom-control-input' name='categories[]' id='custom-check-${index}' value=${data[english_name][0]["id"]}>
           <label class='custom-control-label' for='custom-check-${index}'>${data[english_name][0]["japanese_name"]}</label>
           </div>`;
           $('#checkboxes').append($(check_form));
           flag = 1;
+          var check_form2 = `
+          <div class='custom-control custom-checkbox food_check'>
+          <input type="checkbox" class='custom-control-input' name='categories[]' id='custom-check-0' value='10-276'>
+          <label class='custom-control-label' for='custom-check-0'>豚肉</label>
+          </div>`;
+          $('#checkboxes').append($(check_form2));
       }
     })
 
