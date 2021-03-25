@@ -61,11 +61,13 @@
                                 >ランダムレシピ</a
                             >
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'app:myrecipe' %}"
-                                >マイレシピ</a
-                            >
-                        </li>
+                        {% if user.is_authencated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'app:myrecipe' %}"
+                                    >マイレシピ</a
+                                >
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'app:recognition' %}"
                                 >食材認識</a>
