@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+<h1 class="page_title">トップページ</h1>
+<div class="box">
+  <a href="{% url 'app:index' %}" class="title_link">レシピ検索</a>
+  <p>食材を選択すると、選択した食材を使ったレシピを表示します。検索結果はマイレシピに保存できます。</p>
+</div>
+
+<div class="box">
+  <a href="{% url 'app:random' %}" class="title_link">ランダムレシピ</a>
+  <p>レシピをランダムに表示します。表示されたレシピはマイレシピに保存できます。</p>
+</div>
+
+<div class="box">
+  <a href="{% url 'app:myrecipe' %}" class="title_link">マイレシピ</a>
+  <p>保存したレシピを管理することができます。</p>
+</div>
+{% endblock %}

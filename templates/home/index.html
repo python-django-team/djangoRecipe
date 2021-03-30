@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+<h1 class="page_title">レシピ検索</h1>
+<p>使用する食材を選択してください</p>
+<form action="{% url 'app:result' %}" method="get">
+	<ul class="nav nav-tabs" role="tablist">
+  		<li class="nav-item">
+  			<a class="nav-link active" id="item1-tab" data-toggle="tab" href="#item1" role="tab" aria-controls="item1" aria-selected="true">肉</a>
+  		</li>
+  		<li class="nav-item">
+			<a class="nav-link" id="item2-tab" data-toggle="tab" href="#item2" role="tab" aria-controls="item2" aria-selected="false">魚</a>
+  		</li>
+  		<li class="nav-item">
+			<a class="nav-link" id="item3-tab" data-toggle="tab" href="#item3" role="tab" aria-controls="item3" aria-selected="false">野菜</a>
+  		</li>
+	</ul>
+	<div class="tab-content">
+  		<div class="tab-pane fade show active" id="item1" role="tabpanel" aria-labelledby="item1-tab">
+  			<ul class="image_list">
+    			<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo1.png" alt="豚肉" id="10-276">
+						<input class="disabled_checkbox" type="checkbox" checked name="categories[]" id="10-276" value="10-276">
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="牛肉" id="10-275">
+						<input class="disabled_checkbox" type="checkbox" checked name="categories[]" id="10-275" value="10-275">
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="鶏肉" id="10-277">
+						<input class="disabled_checkbox" type="checkbox" checked name="categories[]" id="10-277" value="10-277">
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="ひき肉" id="10-278">
+						<input class="disabled_checkbox" type="checkbox" checked name="categories[]" id="10-278" value="10-278">
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="ソーセージ・ウインナー" id="10-66">
+						<input class="disabled_checkbox" type="checkbox" checked name="categories[]" id="10-66" value="10-66">
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="ハム" id="10-67">
+						<input class="disabled_checkbox" type="checkbox" checked name="categories[]" id="10-67" value="10-67">
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="ベーコン" id="10-68">
+						<input class="disabled_checkbox" type="checkbox" checked  name="categories[]" id="10-68" value="10-68">
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="その他の肉" id="10-69">
+						<input class="disabled_checkbox" type="checkbox" checked name="categories[]" id="10-69" value="10-69">
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="肉類全て" id="10">
+						<input class="disabled_checkbox" type="checkbox" checked  name="categories[]" id="10" value="10">
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="tab-pane fade" id="item2" role="tabpanel" aria-labelledby="item2-tab">
+			<ul class="image_list">
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="サーモン・サケ" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="イワシ" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="サバ" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="アジ" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="ぶり" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="さんま" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="たい" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="マグロ" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="その他の魚" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="エビ" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="イカ" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="たこ" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="貝類" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="かに" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="たら" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="かき" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="明太子・魚卵" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="その他の魚介" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="tab-pane fade" id="item3" role="tabpanel" aria-labelledby="item3-tab">
+			<ul class="image_list">
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="豚肉" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="牛肉" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="鶏肉" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="ひき肉" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="ソーセージ・ウインナー" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="ハム" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="ベーコン" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="その他の肉" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+				<li>
+					<div class="image_box">
+						<img class="thumbnail" src="/media/images/foo2.png" alt="肉類全て" >
+						<input class="disabled_checkbox" type="checkbox" checked >
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="btn-send-form" role="group" aria-label="Basic example">
+  		<button type="submit" class="btn btn-danger">検索</button>
+  		<button type="button" class="btn btn-outline-info" id="clear">クリア</button>
+	</div>
+</form>
+{% endblock %}

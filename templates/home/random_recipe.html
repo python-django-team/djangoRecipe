@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+<h1 class="page_title">ランダムレシピ</h1>
+<a id="reload" href="{% url 'app:random' %}">更新</a>
+<div id="recipe_result">
+  <p class="btn btn-link" id="select" onclick="clickBtn1()">選択</p>
+  <br></br>
+  {% for i in data %}
+    <button class="recipe-btn" onclick="location.href='{{ i.recipeUrl }}'">
+      <article class="article">
+        <!-- レシピの画像 -->
+        <figure>
+          <img src="{{ i.foodImageUrl }}">
+        </figure>
+        <div class="recipe-info">
+          <!-- レシピのタイトル -->
+          <h2>{{ i.recipeTitle }}</h2>
+          <!-- レシピの投稿日時 -->
+          <time class="article-date">{{ i.recipePublishday }}</time>
+          <br></br>
+          <!-- 調理時間目安 -->
+          <p>調理時間目安:{{ i.recipeIndication }}</p>
+          <!-- レシピの説明 -->
+          <p>{{ i.recipeDescription }}</p>
+        </div>
+      </article>
+    </button>
+  {% endfor %}
+</div>
+
+<div id="select-myrecipe">
+	<form action="{% url 'app:myrecipe' %}" method="post">
+		{% csrf_token %}
+		<p class="btn btn-link" id="select" onclick="clickBtn2()">戻す</p>
+		<br></br>
+		{% for i in data %}
+			<article class="article">
+				<input class="recipe-btn" type="checkbox" name="recipe[]" id="{{ i.recipeUrl }}" value="{{ i }}">
+				<label class="label" for="{{ i.recipeUrl }}">
+					<figure>
+						<img src="{{ i.foodImageUrl }}">
+					</figure>
+					<div class="recipe-info">
+						<h2>{{ i.recipeTitle }}</h2>
+						<time class="article-date">{{ i.recipePublishday }}</time>
+						<br></br>
+						<p>調理時間目安:{{ i.recipeIndication }}</p>
+						<p>{{ i.recipeDescription }}</p>
+					</div>
+				</label>
+			</article>
+		{% endfor %}
+		<br></br>
+		<input class="btn btn-outline-success" type="submit" value="保存する">
+	<br></br>
+	</form>
+</div>
+{% endblock %}
