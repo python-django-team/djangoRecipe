@@ -1,7 +1,8 @@
 {% extends "base.html" %}
- 
+{% load static %}
 {% block content %}
 <h1>レシピ検索</h1>
+<img src="{% static 'foo1.png' %}">
 <p>使用する食材を選択してください</p>
 <form action="{% url 'app:result' %}" method="get">
 	<ul class="nav nav-tabs" role="tablist">

@@ -102,6 +102,7 @@ function getVisionAPIInfo(request) {
 }
 
 function showResult(result) {
+  console.log("ok");
   var food_name_json_url = "static/json/food_name.json";
   $.getJSON(food_name_json_url, (data) => {
     var english_name_array = result.responses[0].localizedObjectAnnotations.map((object) => object.name);
@@ -119,12 +120,14 @@ function showResult(result) {
           </div>`;
           $('#checkboxes').append($(check_form));
           flag = 1;
+          /*
           var check_form2 = `
           <div class='custom-control custom-checkbox food_check'>
           <input type="checkbox" class='custom-control-input' name='categories[]' id='custom-check-0' value='10-276'>
           <label class='custom-control-label' for='custom-check-0'>豚肉</label>
           </div>`;
           $('#checkboxes').append($(check_form2));
+          */
       }
     })
 

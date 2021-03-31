@@ -136,7 +136,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#デプロイ用に追加
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')# デプロイ用に追加
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -150,11 +150,15 @@ MESSAGE_TAGS = {
 #ログイン画面
 LOGIN_URL = 'app:site_user_login'
 
+# セッションの有効期限
+SESSION_COOKIE_AGE = 600
+
 #envファイルから楽天APIのURLやキーを読み込む
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
 REQUEST_URL = env('REQUEST_URL')
 APP_ID = env('APP_ID')
+RECOGNITION_CODE = env('RECOGNITION_CODE')
 
 #ローカル環境とheroku環境でデータベースを切り替える
 try:

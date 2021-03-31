@@ -9,6 +9,8 @@ urlpatterns = [
     path("siteUser/register", views.SiteUserRegisterView.as_view(), name="site_user_register"),
     path("siteUser/profile", views.SiteUserProfileView.as_view(), name="site_user_profile"),
     path('recognition', views.RecognitionView.as_view(), name='recognition'),
+    # 画像認識認証
+    path("recognition/auth", views.RecognitionAuthView.as_view(), name='recognition_auth'),
 
     # レシピ検索
     path('index',views.IndexView.as_view(),name='index'),
@@ -20,4 +22,5 @@ urlpatterns = [
     path("myrecipe", views.MyRecipeView.as_view(), name='myrecipe'),
     # マイレシピ削除
     path("myrecipe/delete", views.DeleteMyRecipeView.as_view(), name='myrecipe_delete'),
+    
 ]

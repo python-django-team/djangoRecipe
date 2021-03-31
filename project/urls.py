@@ -14,11 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from django.views.decorators.cache import cache_control
 
 urlpatterns = [
@@ -32,7 +32,8 @@ urlpatterns = [
             template_name="sw.js", content_type="application/javascript",
         ),
         name="service-worker",
-    ),
+    ),  
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += [ re_path(r'^static/(?P<path>.*)$', RedirectView.as_view(url="/random")) ]
