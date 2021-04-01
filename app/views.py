@@ -259,5 +259,5 @@ class RecognitionAuthView(View):
 			return render(request, "recognition/recognition.html")
 
 		request.session['recognition_key'] = True
-		return render(request, "recognition/recognition.html")
+		return redirect('app:recognition')
 

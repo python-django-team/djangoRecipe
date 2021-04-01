@@ -25,25 +25,9 @@
         -->
         </div>
         <h3>識別結果</h3>
-        <!--
-        <table id="resultLabels">
-            <thead><tr><td><b>識別結果</b></td></tr></thead> 
-            <tbody id="resultBox"></tbody>
-        </table>
-    -->
         <form id="result_form" action="{% url 'app:result' %}" method="get">
             <div class="form-group" id="checkboxes">
-                <!--
-                <div class="custom-control custom-checkbox food_check">
-                    <input type="checkbox" class="custom-control-input" id="custom-check-2">
-                    <label class="custom-control-label" for="custom-check-2">選択肢2</label>
-                </div>
-                <div class="custom-control custom-checkbox food_check">
-                    <input type="checkbox" class="custom-control-input" id="custom-check-3">
-                    <label class="custom-control-label" for="custom-check-3">選択肢3</label>
-                </div>
-            -->
-            
+                <!--ここに識別結果が入ります-->
             </div>
             <div class="hidden" id="recognition_to_search_button">
                 <button class="btn btn-primary" type="submit">レシピを検索</button>

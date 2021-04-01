@@ -151,7 +151,7 @@ MESSAGE_TAGS = {
 LOGIN_URL = 'app:site_user_login'
 
 # セッションの有効期限
-SESSION_COOKIE_AGE = 600
+SESSION_COOKIE_AGE = 60
 
 #envファイルから楽天APIのURLやキーを読み込む
 env = environ.Env()

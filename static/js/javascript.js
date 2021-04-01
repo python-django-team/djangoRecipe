@@ -61,18 +61,6 @@ function getImageInfo(evt) {
     dataUrl = reader.result;
     $('#showPic').html("<img src='" + dataUrl + "'>");
     makeRequest(dataUrl, getVisionAPIInfo);
-    /*
-    var food_name_json_url = "static/json/food_name.json";
-    $.getJSON(food_name_json_url, (data) => {
-      var english_name = "Pork"
-      if (data[english_name]) {
-        console.log(data[english_name]);
-        console.log(data[english_name][0]["japanese_name"]);
-      }
-      
-    });
-   */
-    
   }
 }
 
@@ -102,7 +90,6 @@ function getVisionAPIInfo(request) {
 }
 
 function showResult(result) {
-  console.log("ok");
   var food_name_json_url = "static/json/food_name.json";
   $.getJSON(food_name_json_url, (data) => {
     var english_name_array = result.responses[0].localizedObjectAnnotations.map((object) => object.name);
@@ -139,20 +126,5 @@ function showResult(result) {
                           </div>`;
       $('.no_food').append($(alert_message));
     }
-
-    
-    /*
-    for (var english_name of english_name_set) {
-      if (data[english_name]) {
-
-        $('#resultBox').append(`<tr><td class='resultTableContent'>${data[english_name][0]["japanese_name"]}</td></tr>`);
-        var data = `
-          <div class='custom-control custom-checkbox food_check'>
-          <input type="checkbox" class='custom-control-input' id='custom-check-${}' value=${data[english_name][0]["id"]}>
-          <label class='custom-control-label'>${data[english_name][0]["japanese_name"]}</label>
-          </div>`;
-      }
-    }
-    */
   });
 }
