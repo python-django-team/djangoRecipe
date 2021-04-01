@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+{% if request.session.recognition_key %}
+    <div class="file_input_and_image">
+        <div class="file_input">
+            <div class="input-group">
+                <label class="input-group-btn">
+                    <span class="btn btn-primary">
+                        写真を選択<input type="file" style="display:none" id="uploader">
+                    </span>
+                </label>
+                <input type="text" class="form-control" readonly="">
+            </div>
+        </div>
+        <div class="ImageArea hidden">
+            <div id="showPic"></div>
+        </div>
+    </div>
+    <div class="resultArea hidden">
+        <div class="no_food">
+            <!--
+            <div class="alert alert-danger" role="alert">
+                食材が一つも識別されませんでした
+            </div>
+        -->
+        </div>
+        <h3>識別結果</h3>
+        <form id="result_form" action="{% url 'app:result' %}" method="get">
+            <div class="form-group" id="checkboxes">
+                <!--ここに識別結果が入ります-->
+            </div>
+            <div class="hidden" id="recognition_to_search_button">
+                <button class="btn btn-primary" type="submit">レシピを検索</button>
+            </div>  
+        </form>
+    </div>
+{% else %}
+    <form method="POST" action="{% url 'app:recognition_auth' %}">
+        <div class="form-group">
+            <label>認証コード</label>
+            <input type="password" class="form-control" name="recognition_auth">
+        </div>
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit">認証</button>        
+    </form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,160 @@
+{
+    "Pork": [
+        {
+            "japanese_name": "豚肉",
+            "id": "10-276"
+        }
+    ],
+    "Beef": [
+        {
+            "japanese_name": "牛肉",
+            "id": "10-275"
+        }
+    ],
+    "Chicken": [
+        {
+            "japanese_name": "鶏肉",
+            "id": "10-277"
+        }
+    ],
+    "Sausage": [
+        {
+            "japanese_name": "ソーセージ",
+            "id": "10-66"
+        }
+    ],
+    "Wiener": [
+        {
+            "japanese_name": "ウインナー",
+            "id": "10-66"
+        }
+    ],
+    "Ham": [
+        {
+            "japanese_name": "ハム",
+            "id": "10-67"
+        }
+    ],
+    "Bacon": [
+        {
+            "japanese_name": "ベーコン",
+            "id": "10-68"
+        }
+    ],
+    "Salmon": [
+        {
+            "japanese_name": "サーモン",
+            "id": 1
+        }
+    ],
+    "Sardine": [
+        {
+            "japanese_name": "イワシ",
+            "id": 1
+        }
+    ],
+    "mackerel": [
+        {
+            "japanese_name": "サバ",
+            "id": 1
+        }
+    ],
+    "Horse mackerel": [
+        {
+            "japanese_name": "アジ",
+            "id": 1
+        }
+    ],
+    "Yellowtail": [
+        {
+            "japanese_name": "ぶり",
+            "id": 1
+        }
+    ],
+    "Pacific saury": [
+        {
+            "japanese_name": "サンマ",
+            "id": 1
+        }
+    ],
+    "Red snapper": [
+        {
+            "japanese_name": "鯛",
+            "id": 1
+        }
+    ],
+    "Tuna": [
+        {
+            "japanese_name": "マグロ",
+            "id": 1
+        }
+    ],
+    "Shrimp": [
+        {
+            "japanese_name": "エビ",
+            "id": 1
+        }
+    ],
+    "Squid": [
+        {
+            "japanese_name": "イカ",
+            "id": 1
+        }
+    ],
+    "Octopus": [
+        {
+            "japanese_name": "たこ",
+            "id": 1
+        }
+    ],
+    "Shellfish": [
+        {
+            "japanese_name": "貝類",
+            "id": 1
+        }
+    ],
+    "Crab": [
+        {
+            "japanese_name": "蟹",
+            "id": 1
+        }
+    ],
+    "Cod": [
+        {
+            "japanese_name": "たら",
+            "id": 1
+        }
+    ],
+    "Oysters": [
+        {
+            "japanese_name": "かき",
+            "id": 1
+        }
+    ],
+    "Fish eggs": [
+        {
+            "japanese_name": "魚卵",
+            "id": 1
+        }
+    ],
+    "Carrot": [
+        {
+            "japanese_name": "にんじん",
+            "id": 1
+        }
+    ],
+    "Broccoli": [
+        {
+            "japanese_name": "ブロッコリー",
+            "id": 1
+        }
+    ],
+    "Tomato": [
+        {
+            "japanese_name": "トマト",
+            "id": 1
+        }
+    ]
+
+
+}
