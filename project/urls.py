@@ -36,4 +36,4 @@ urlpatterns = [
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += [ re_path(r'^static/(?P<path>.*)$', RedirectView.as_view(url="/random")) ]
+urlpatterns += [ re_path('', RedirectView.as_view(url="/random")) ]
