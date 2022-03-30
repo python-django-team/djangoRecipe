@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
+from .settings import *
 
+DEBUG = True
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -12,4 +14,3 @@ DATABASES = {
         'NAME': str(BASE_DIR / 'db.sqlite3'), #修正
     }
 }
-DEBUG = True

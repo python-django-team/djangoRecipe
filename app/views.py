@@ -19,10 +19,13 @@ import random
 #envファイル→settings.pyファイルで読み込む
 REQUEST_URL = settings.REQUEST_URL
 APP_ID = settings.APP_ID
+RECOGNITION_CODE = settings.RECOGNITION_CODE
 
 # ランダムレシピ
 class Random(View):
 	def get(self, request, *args, **kwargs):
+		print(settings.MEDIA_ROOT)
+		
 	# jsonファイルから読み込む(必要なデータを取り出す)
 		passdatas = [] # 連想配列の配列
 		passdata = {} # 連想配列
@@ -60,6 +63,7 @@ class IndexView(TemplateView):
 class ResultView(View):
 	def get(self, request, *args, **kwargs):
 		categories = self.request.GET.getlist('categories[]',[])
+		print(categories)
 		if categories != []:
 			recipes = []
 			recipe_id = []
@@ -241,3 +245,19 @@ class SiteUserProfileView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
 
         return render(request, "app/siteUser/profile.html")
+
+class RecognitionView(TemplateView):
+	template_name = 'recognition/recognition.html'
+
+# 画像認識認証
+class RecognitionAuthView(View):
+
+	def post(self, request, *args, **kwargs):
+		password = request.POST['recognition_auth']
+		if password != RECOGNITION_CODE:
+			messages.error(request, "認証コードが間違っています")
+			return render(request, "recognition/recognition.html")
+
+		request.session['recognition_key'] = True
+		return redirect('app:recognition')
+
